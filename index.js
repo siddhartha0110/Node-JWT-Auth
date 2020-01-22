@@ -3,6 +3,9 @@ const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
+const authRoute = require("./routes/auth");
+const postRoute = require("./routes/posts");
+
 app.use(express.json());
 dotenv.config();
 //Connect to DB
@@ -12,9 +15,8 @@ mongoose.connect(
   () => console.log("Connected To MongoDB")
 );
 
-const authRoute = require("./routes/auth");
-
 app.use("/api/user", authRoute);
+app.use("/api/posts", postRoute);
 
 app.listen(5000, () => {
   console.log("Server running on port 5000");
